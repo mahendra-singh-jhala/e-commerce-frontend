@@ -41,9 +41,8 @@ const Navbar = () => {
         setOpenAuthModel(false)
     }
 
-    const handleCatagoryClick = (category, section, item, close) => {
+    const handleCatagoryClick = (category, section, item ) => {
         navigate(`/${category.id}/${section.id}/${item.id}`);
-        close();
     }
 
     useEffect(() => {
@@ -274,8 +273,7 @@ const Navbar = () => {
                                                                                             handleCatagoryClick(
                                                                                                 category,
                                                                                                 section,
-                                                                                                item,
-                                                                                                close
+                                                                                                item   
                                                                                             )
                                                                                         }}
                                                                                         className="cursor-pointer hover:text-gray-800"
