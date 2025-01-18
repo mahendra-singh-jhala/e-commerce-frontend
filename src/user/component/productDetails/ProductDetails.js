@@ -49,8 +49,8 @@ const ProductDetails = () => {
                         <div className="mt-4 lg:row-span-3 lg:mt-0">
                             <h2 className="sr-only">Product information</h2>
                             <div className="flex space-x-5 items-center text-lg lg:text-xl text-gray-900 mt-6">
-                                <p className="font-semibold"> {product?.data.product?.discountedPrice} </p>
-                                <p className="opacity-50 line-through"> {product?.data.product?.price} </p>
+                                <p className="font-semibold"> ₹{product?.data.product?.discountedPrice} </p>
+                                <p className="opacity-50 line-through"> ₹{product?.data.product?.price} </p>
                                 <p className="text-green-600 font-semibold"> {product?.data.product?.discountPersent}% off </p>
                             </div>
 
