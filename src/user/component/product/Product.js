@@ -10,10 +10,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { findProducts } from '../../../state/product/Action'
 
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
-
 const Product = () => {
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const location = useLocation();

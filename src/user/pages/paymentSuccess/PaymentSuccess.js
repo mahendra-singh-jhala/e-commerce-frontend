@@ -18,7 +18,7 @@ const PaymentSuccess = () => {
             dispatch(updatePayment(orderId?.orderId, paymentId))
             dispatch(getOrderById(orderId?.orderId))
         } 
-    }, [dispatch, location.search]);
+    }, [dispatch, orderId, location.search]);
 
 
     return (

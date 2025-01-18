@@ -116,10 +116,10 @@ const Navbar = () => {
                                                         src={item.imageSrc}
                                                         className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                                                     />
-                                                    <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                                    <Link className="mt-6 block font-medium text-gray-900">
                                                         <span aria-hidden="true" className="absolute inset-0 z-10" />
                                                         {item.name}
-                                                    </a>
+                                                    </Link>
                                                     <p aria-hidden="true" className="mt-1">
                                                         Shop now
                                                     </p>
@@ -162,9 +162,9 @@ const Navbar = () => {
                         <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                             {navigation.pages.map((page) => (
                                 <div key={page.name} className="flow-root">
-                                    <a href={page.href} className="-m-2 block p-2 font-medium text-gray-900">
+                                    <Link className="-m-2 block p-2 font-medium text-gray-900">
                                         {page.name}
-                                    </a>
+                                    </Link>
                                 </div>
                             ))}
                         </div>
@@ -246,10 +246,10 @@ const Navbar = () => {
                                                                             src={item.imageSrc}
                                                                             className="aspect-square w-full rounded-lg bg-gray-100 object-cover group-hover:opacity-75"
                                                                         />
-                                                                        <a href={item.href} className="mt-6 block font-medium text-gray-900">
+                                                                        <Link className="mt-6 block font-medium text-gray-900">
                                                                             <span aria-hidden="true" className="absolute inset-0 z-10" />
                                                                             {item.name}
-                                                                        </a>
+                                                                        </Link>
                                                                         <p aria-hidden="true" className="mt-1">
                                                                             Shop now
                                                                         </p>
@@ -294,13 +294,12 @@ const Navbar = () => {
                                     ))}
 
                                     {navigation.pages.map((page) => (
-                                        <a
+                                        <Link
                                             key={page.name}
-                                            href={page.href}
                                             className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                                         >
                                             {page.name}
-                                        </a>
+                                        </Link>
                                     ))}
                                 </div>
                             </PopoverGroup>
@@ -343,14 +342,14 @@ const Navbar = () => {
                                 </div>
 
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="#" className="group -m-2 flex items-center p-2">
+                                    <Link className="group -m-2 flex items-center p-2">
                                         <LocalShippingIcon
                                             aria-hidden="true"
                                             sx={{ fontSize: "30px", color: "#99AAAB" }}
                                             onClick={handleOpenOrder}
                                         />
                                         <span className="sr-only"> Order </span>
-                                    </a>
+                                    </Link>
                                 </div>
 
                                 {/* Cart */}

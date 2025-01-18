@@ -57,7 +57,7 @@ const Checkout = () => {
                         </Box>
 
                         <Box className="mt-10">
-                            {step == 2 ? <DeliveryAddForm /> : <OrderSummary />}
+                            {step === 2 ? <DeliveryAddForm /> : <OrderSummary />}
                         </Box>
                     </Fragment>
                 )}
