@@ -17,8 +17,7 @@ const Checkout = () => {
 
     const querySearch = new URLSearchParams(location.search);
 
-    const step = querySearch.get("step")
-    console.log(step)
+    const step = parseInt(querySearch.get("step"), 10)
 
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -58,7 +57,7 @@ const Checkout = () => {
                         </Box>
 
                         <Box className="mt-10">
-                            {step==2 ? <DeliveryAddForm /> : <OrderSummary />}
+                            {step===2 ? <DeliveryAddForm /> : <OrderSummary />}
                         </Box>
                     </Fragment>
                 )}
