@@ -52,14 +52,6 @@ const Navbar = () => {
 
     }, [dispatch, token, auth.token])
 
-    const handleOpenCart = () => {
-        navigate("/cart")
-    }
-
-    const handleOpenOrder = () => {
-        navigate("/user/order")
-    }
-
     const handleLogout = () => {
         dispatch(logout())
         handleCloseUserMenu()
@@ -342,11 +334,10 @@ const Navbar = () => {
                                 </div>
 
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <Link className="group -m-2 flex items-center p-2">
+                                    <Link to="/user/order" className="group -m-2 flex items-center p-2">
                                         <LocalShippingIcon
                                             aria-hidden="true"
                                             sx={{ fontSize: "30px", color: "#99AAAB" }}
-                                            onClick={handleOpenOrder}
                                         />
                                         <span className="sr-only"> Order </span>
                                     </Link>
@@ -354,11 +345,10 @@ const Navbar = () => {
 
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <Link className="group -m-2 flex items-center p-2">
+                                    <Link to="/cart" className="group -m-2 flex items-center p-2">
                                         <ShoppingBagIcon
                                             aria-hidden="true"
                                             className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
-                                            onClick={handleOpenCart}
                                         />
                                         <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cart?.cartItem.length}</span>
                                         <span className="sr-only">items in cart, view bag</span>
