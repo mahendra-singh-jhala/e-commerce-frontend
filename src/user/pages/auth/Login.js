@@ -4,10 +4,9 @@ import { getUser, login } from "../../../state/auth/Action";
 import { useEffect } from "react";
 
 
-const Login = () => {
+const Login = ({onLoginSuccess}) => {
     const dispatch = useDispatch();
-    const auth = useSelector(state => state.auth); 
-
+    const auth = useSelector(state => state.auth);
     const tokenData = localStorage.getItem("token");
     const token = tokenData ? JSON.parse(tokenData).token : null;
 
@@ -25,6 +24,7 @@ const Login = () => {
     useEffect(() => {
         if (token) {
             dispatch(getUser());
+            onLoginSuccess()
         }
 
     }, [dispatch, token, auth.token]);

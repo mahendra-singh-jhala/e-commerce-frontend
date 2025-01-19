@@ -35,6 +35,7 @@ const Navbar = () => {
 
     const handleOpen = () => {
         setOpenAuthModel(true)
+        navigate('/register');
     }
 
     const handleClose = () => {
