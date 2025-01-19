@@ -27,7 +27,7 @@ const Login = ({onLoginSuccess}) => {
             onLoginSuccess()
         }
 
-    }, [dispatch, token, auth.token]);
+    }, [dispatch, onLoginSuccess, token, auth.token]);
 
     return (
 
