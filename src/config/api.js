@@ -8,7 +8,6 @@ const token = tokenData ? JSON.parse(tokenData).token : null;
 export const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        Authorization: `Bearer ${token}`
     },
 });
