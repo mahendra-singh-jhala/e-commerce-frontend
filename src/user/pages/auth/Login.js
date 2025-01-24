@@ -24,10 +24,15 @@ const Login = ({onLoginSuccess}) => {
     useEffect(() => {
         if (token) {
             dispatch(getUser());
-            onLoginSuccess()
         }
 
-    }, [dispatch, onLoginSuccess, token, auth.token]);
+    }, [dispatch, token, auth.token]);
+
+    useEffect(() => {
+        if (token) {
+          onLoginSuccess();  
+        }
+      }, [token, onLoginSuccess]);
 
     return (
 
