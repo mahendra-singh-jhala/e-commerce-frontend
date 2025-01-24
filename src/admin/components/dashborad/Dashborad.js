@@ -6,7 +6,6 @@ import Products from '../product/Products';
 import Order from '../order/Order';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUser } from '../../../state/user/Action';
-import { getOrder } from '../../../state/order/Action';
 
 const formatNumber = (num) => {
     if (num >= 1_000_000) {

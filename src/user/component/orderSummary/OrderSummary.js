@@ -35,7 +35,7 @@ const OrderSummary = () => {
             amount: amount,
             currency: 'INR',
             name: 'SHOPPER',
-            description: `Payment for `,
+            description: `Payment for product`,
             order_id: payment?.data?.id,
             handler: async (response) => {
                 dispatch(paymentVerification(  payment?.data?.id, response.razorpay_payment_id, response.razorpay_signature, orderId))
