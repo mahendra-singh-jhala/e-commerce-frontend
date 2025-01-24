@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Radio, RadioGroup } from '@headlessui/react'
-import { Button } from '@mui/material'
+import { Button, Snackbar, Alert } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { findProductsById } from '../../../state/product/Action'
@@ -8,15 +8,24 @@ import { addItemToCart } from '../../../state/cart/Action'
 
 const ProductDetails = () => {
     const [selectedSize, setSelectedSize] = useState("")
+    const [openSnackbar, setOpenSnackbar] = useState(false)
     const navigate = useNavigate()
     const params = useParams()
     const dispatch = useDispatch()
-    const product = useSelector((state) => state.product.product);
+    const product = useSelector((state) => state.product.product)
 
     const handleSubmit = () => {
-        const data = { productId: params.productId, size: selectedSize.name }
-        dispatch(addItemToCart(data))
-        navigate("/cart")
+        if (!selectedSize) {
+            setOpenSnackbar(true)
+        } else {
+            const data = { productId: params.productId, size: selectedSize.name }
+            dispatch(addItemToCart(data))
+            navigate("/cart")
+        }
+    }
+
+    const handleSnackbarClose = () => {
+        setOpenSnackbar(false)
     }
 
     useEffect(() => {
@@ -72,12 +81,12 @@ const ProductDetails = () => {
                                                     key={size._id}
                                                     value={size}
                                                     disabled={size.quantity <= 0}
-                                                    className={
-                                                        `${size.quantity > 0
+                                                    className={`
+                                                        ${size.quantity > 0
                                                             ? 'cursor-pointer bg-white text-gray-900 shadow-sm'
                                                             : 'cursor-not-allowed bg-gray-50 text-gray-200'
-                                                        } group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1 sm:py-6`
-                                                    }
+                                                        } group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1 sm:py-6
+                                                    `}
                                                 >
                                                     <span>{size.name}</span>
                                                     {size.quantity > 0 ? (
@@ -113,7 +122,6 @@ const ProductDetails = () => {
                         </div>
 
                         <div className="py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6">
-                            {/* Description and details */}
                             <div className="mt-4">
                                 <h3 className="sr-only">Description</h3>
 
@@ -125,9 +133,22 @@ const ProductDetails = () => {
                     </div>
                 </section>
             </div>
+
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={3000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
+                    Please select a size before adding to the cart.
+                </Alert>
+            </Snackbar>
         </div>
     )
 }
 
 export default ProductDetails
-

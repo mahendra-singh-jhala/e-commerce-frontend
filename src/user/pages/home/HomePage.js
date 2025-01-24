@@ -17,7 +17,7 @@ const HomePage = () => {
             minPrice,
             maxPrice,
             pageNumber: 1,
-            pageSize: 40,
+            pageSize: Infinity,
         }
         dispatch(findProducts(data))
     }, [dispatch])
@@ -27,8 +27,6 @@ const HomePage = () => {
     const filterCategory = (categoryName) => {
         return products?.data?.content?.filter((product) => product?.category?.name === categoryName);
     }
-
-    
 
     return (
         <div>

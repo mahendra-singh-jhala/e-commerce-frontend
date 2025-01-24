@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { getUser, login } from "../../../state/auth/Action";
 import { useEffect } from "react";
 
 
-const Login = ({onLoginSuccess}) => {
+const Login = ({ onLoginSuccess }) => {
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
     const tokenData = localStorage.getItem("token");
     const token = tokenData ? JSON.parse(tokenData).token : null;
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -25,14 +26,16 @@ const Login = ({onLoginSuccess}) => {
         if (token) {
             dispatch(getUser());
         }
-
-    }, [dispatch, token, auth.token]);
+    }, [dispatch, token]);
 
     useEffect(() => {
         if (token) {
-          onLoginSuccess();  
+            onLoginSuccess()
+            if (auth?.user?.role === 1) {
+                navigate("/admin")
+            }
         }
-      }, [token, onLoginSuccess]);
+    }, [token, onLoginSuccess, auth?.user?.role, navigate]);
 
     return (
 

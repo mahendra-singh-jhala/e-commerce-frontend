@@ -28,7 +28,7 @@ const Products = () => {
 			minPrice,
 			maxPrice,
 			pageNumber: 1,
-			pageSize: 40,
+			pageSize: Infinity,
 		}
 		dispatch(findProducts(data))
 	}, [dispatch, products.deleteProduct])

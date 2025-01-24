@@ -9,7 +9,7 @@ import {
 
 // Initial State
 const initialState = {
-    paymentStatus: null,
+    payment: null,
     success: false,  
     loading: false,       
     error: null,          
@@ -29,7 +29,7 @@ export const paymentReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                paymentStatus: action.payload
+                payment: action.payload
             };
         
         case CREATE_PAYMENT_FAILURE:
@@ -44,7 +44,7 @@ export const paymentReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 success: true,
-                paymentStatus: action.payload
+                payment: action.payload
             };
         
         case UPDATE_PAYMENT_FAILURE:

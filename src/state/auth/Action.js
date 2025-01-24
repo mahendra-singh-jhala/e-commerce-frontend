@@ -3,30 +3,21 @@ import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LO
 import { API_BASE_URL } from "../../config/api"
 
 
-const registerRequest = () => ({ type: REGISTER_REQUEST })
-const registerSuccess = (user) => ({ type: REGISTER_SUCCESS, payload: user })
-const registerFailure = (error) => ({ type: REGISTER_FAILURE, payload: error })
-
 export const register = (userData) => async (dispatch) => {
-    dispatch(registerRequest())
+    dispatch({ type: REGISTER_REQUEST })
     try {
         const res = await axios.post(`${API_BASE_URL}/api/auth/register`, userData);
         const data = res.data;
 
-        dispatch(registerSuccess(data))
+        dispatch({ type: REGISTER_SUCCESS, payload: data })
 
     } catch (error) {
-        dispatch(registerFailure(error.message))
+        dispatch({ type: REGISTER_FAILURE, payload: error })
     }
 }
 
-
-const loginRequest = () => ({ type: LOGIN_REQUEST })
-const loginSuccess = (user) => ({ type: LOGIN_SUCCESS, payload: user })
-const loginFailure = (error) => ({ type: LOGIN_FAILURE, payload: error })
-
 export const login = (loginData) => async (dispatch) => {
-    dispatch(loginRequest())
+    dispatch({ type: LOGIN_REQUEST })
     try {
         const res = await axios.post(`${API_BASE_URL}/api/auth/login`, loginData)
         const user = res.data
@@ -34,21 +25,16 @@ export const login = (loginData) => async (dispatch) => {
             localStorage.setItem("token", JSON.stringify(res.data))
         }
 
-        dispatch(loginSuccess())
+        dispatch({ type: LOGIN_SUCCESS, payload: user })
     } catch (error) {
-        dispatch(loginFailure(error.message))
+        dispatch({ type: LOGIN_FAILURE, payload: error })
     }
 }
-
-
-const getUserRequest = () => ({ type: GET_USER_REQUEST })
-const getUserSuccess = (user) => ({ type: GET_USER_SUCCESS, payload: user })
-const getUserFailure = (error) => ({ type: GET_USER_FAILURE, payload: error })
 
 export const getUser = () => async (dispatch) => {
     const token = JSON.parse(localStorage.getItem("token")).token
 
-    dispatch(getUserRequest());
+    dispatch({ type: GET_USER_REQUEST });
     try {
         const res = await axios.get(`${API_BASE_URL}/api/user/profile`, {
             headers: {
@@ -56,9 +42,9 @@ export const getUser = () => async (dispatch) => {
             },
         });
         const user = res.data;
-        dispatch(getUserSuccess(user));
+        dispatch({ type: GET_USER_SUCCESS, payload: user });
     } catch (error) {
-        dispatch(getUserFailure(error.message));
+        dispatch({ type: GET_USER_FAILURE, payload: error });
     }
 };
 

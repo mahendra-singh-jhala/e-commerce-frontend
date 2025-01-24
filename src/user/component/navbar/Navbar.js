@@ -200,7 +200,7 @@ const Navbar = () => {
 
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
-                                <Link>
+                                <Link to="/">
                                     <span className="sr-only">Your Company</span>
                                     <img
                                         alt=""
@@ -334,7 +334,7 @@ const Navbar = () => {
                                     )}
                                 </div>
 
-                                <div className="ml-4 flow-root lg:ml-6">
+                                {auth.user && <div className="ml-4 flow-root lg:ml-6">
                                     <Link to="/user/order" className="group -m-2 flex items-center p-2">
                                         <LocalShippingIcon
                                             aria-hidden="true"
@@ -342,10 +342,10 @@ const Navbar = () => {
                                         />
                                         <span className="sr-only"> Order </span>
                                     </Link>
-                                </div>
+                                </div>}
 
                                 {/* Cart */}
-                                <div className="ml-4 flow-root lg:ml-6">
+                                {auth.user && <div className="ml-4 flow-root lg:ml-6">
                                     <Link to="/cart" className="group -m-2 flex items-center p-2">
                                         <ShoppingBagIcon
                                             aria-hidden="true"
@@ -354,7 +354,7 @@ const Navbar = () => {
                                         <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cart?.cartItem.length}</span>
                                         <span className="sr-only">items in cart, view bag</span>
                                     </Link>
-                                </div>
+                                </div>}
                             </div>
                         </div>
                     </div>

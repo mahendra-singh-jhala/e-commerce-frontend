@@ -2,15 +2,17 @@ import { Button, Divider } from "@mui/material"
 import CartItem from "../cart/CartItem"
 import AddressCard from "../deliveryAddressForm/AddressCard"
 import { useDispatch, useSelector } from "react-redux"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { getOrderById } from "../../../state/order/Action"
-import { createPayment } from "../../../state/payment/Action"
+import { createPayment, paymentVerification } from "../../../state/payment/Action"
 
 const OrderSummary = () => {
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     const order = useSelector((state) => state.order.order)
+    const payment = useSelector((state) => state.payment.payment)
 
     const searchParams = new URLSearchParams(location.search);
     const orderId = searchParams.get("order_id")
@@ -19,9 +21,40 @@ const OrderSummary = () => {
         dispatch(getOrderById(orderId))
     }, [dispatch, orderId])
 
+
+    const amount = order?.data?.order?.totalDiscountPrice
+    useEffect(() => {
+        if(amount) {
+            dispatch(createPayment(amount, 'INR'));
+        }
+    }, [dispatch, amount])
+
     const handlePayment = () => {
-        dispatch(createPayment(orderId))
+        const options = {
+            key: process.env.ROZ_KEY_ID,
+            amount: amount,
+            currency: 'INR',
+            name: 'SHOPPER',
+            description: `Payment for `,
+            order_id: payment?.data?.id,
+            handler: async (response) => {
+                dispatch(paymentVerification(  payment?.data?.id, response.razorpay_payment_id, response.razorpay_signature, orderId))
+            },
+            theme: {
+                color: '#F37254',
+            },
+        };
+
+        const razorpay = new window.Razorpay(options);
+        razorpay.open();
     }
+
+    useEffect(() => {
+        if(payment?.data?.success) {
+            navigate("/payment-success")
+        }
+    }, [payment, navigate])
+
 
     return (
         <div>

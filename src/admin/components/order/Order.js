@@ -22,7 +22,7 @@ const Order = () => {
 
     useEffect(() => {
         dispatch(getOrder())
-    }, [dispatch, order.confirmed, order.delivered, order.shipped])
+    }, [dispatch])
 
 
     const handleShippedOrder = (orderId) => {

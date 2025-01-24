@@ -47,7 +47,7 @@ export const orderReducer = (state = initialState, action) => {
             return { ...state, isLoading: true, error: null }
 
         case PLACED_ORDER_SUCCESS:
-            return { ...state, isLoading: false, placed: action.payload, error: null }
+            return { ...state, isLoading: false, orders: action.payload, error: null }
 
         case CONFIRMED_ORDER_SUCCESS:
             return { ...state, isLoading: false, confirmed: action.payload, error: null }
@@ -76,7 +76,7 @@ export const orderReducer = (state = initialState, action) => {
         case DELETE_ORDER_REQUEST:
             return { ...state, isLoading: true, error: null }
         case DELETE_ORDER_SUCCESS:
-            return { ...state, isLoading: false, orders: state.orders.filter((order) => order._id !== action.payload) }
+            return { ...state, isLoading: false, delete: action.payload }
         case DELETE_ORDER_FAILURE:
             return { ...state, isLoading: false, orders: [], error: action.payload }
 

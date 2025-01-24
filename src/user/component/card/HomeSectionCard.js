@@ -1,11 +1,24 @@
+import { Snackbar, Alert } from '@mui/material';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const HomeSectionCard = ({ product }) => {
     const navigate = useNavigate()
+    const auth = useSelector(state => state.auth);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const handleClick = () => {
-        navigate(`/product/${product._id}`); 
-    }
+        if (!auth.user) {
+            setOpenSnackbar(true);
+        } else {
+            navigate(`/product/${product._id}`);
+        }
+    };
+
+    const handleSnackbarClose = () => {
+        setOpenSnackbar(false);
+    };
 
     return (
         <div onClick={handleClick} className="flex flex-col items-center bg-white rounded-lg shadow-lg overflow-hidden w-[240px] mx-3 border border-gray-400">
@@ -17,6 +30,19 @@ const HomeSectionCard = ({ product }) => {
                 <p className="mt-2 text-sm text-gray-600">{product.title}</p>
             </div>
 
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={3000}
+                onClose={handleSnackbarClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+            >
+                <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
+                    Please Login First
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

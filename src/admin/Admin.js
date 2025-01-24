@@ -7,13 +7,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import LogoutIcon from '@mui/icons-material/Logout';
 import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft';
 import Dashborad from './components/dashborad/Dashborad';
 import CreateProduct from './components/product/CreateProduct';
 import Products from './components/product/Products';
 import Order from './components/order/Order';
 import User from './components/user/User';
+import { logout } from '../state/auth/Action';
+import { useDispatch } from 'react-redux';
 
 const menu = [
     { name: "Dashborad", path: "/admin", icon: <DashboardIcon /> },
@@ -27,11 +29,17 @@ const Admin = () => {
     const theme = useTheme();
     const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"))
     const [sidebarVisible, setSidebarVisibal] = useState(false)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const toggleDrawer = (newsidebarVisible) => () => {
         setSidebarVisibal(newsidebarVisible);
     };
+
+    const handleLogout = () => {
+        dispatch(logout()); 
+        navigate('/'); 
+      };
 
     const drawer = (
         <Box sx={{ overflow: "auto", display: "flex", flexDirection: "column", height: "100%" }}>
@@ -50,12 +58,12 @@ const Admin = () => {
             </List>
             <List sx={{ marginTop: 'auto' }}>
                 <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton onClick={handleLogout}>
                         <ListItemIcon>
-                            <AccountBoxIcon />
+                            <LogoutIcon />
                         </ListItemIcon>
                         <ListItemText>
-                            Account
+                            LOGOUT
                         </ListItemText>
                     </ListItemButton>
                 </ListItem>
@@ -81,11 +89,11 @@ const Admin = () => {
                 ) : (
                     <>
                         <Button onClick={toggleDrawer(true)} sx={{
-                                position: "fixed",
-                                top: 16,
-                                left: 16,
-                                zIndex: 1200,
-                            }}><FormatAlignLeftIcon /></Button>
+                            position: "fixed",
+                            top: 16,
+                            left: 16,
+                            zIndex: 1200,
+                        }}><FormatAlignLeftIcon /></Button>
                         <Drawer
                             open={sidebarVisible}
                             onClose={toggleDrawer(false)}
@@ -99,16 +107,16 @@ const Admin = () => {
                 )}
             </Box>
             <Box sx={{
-                    marginLeft: isLargeScreen ? 0 : '140px', 
-                    marginTop: isLargeScreen ? 0 : '56px',
-                    transition: 'margin-left 0.3s ease-in-out',
-                }}>
+                marginLeft: isLargeScreen ? 0 : '140px',
+                marginTop: isLargeScreen ? 0 : '56px',
+                transition: 'margin-left 0.3s ease-in-out',
+            }}>
                 <Routes>
-                    <Route path='/' element={<Dashborad />}/>
-                    <Route path='/product/create' element={<CreateProduct />}/>
-                    <Route path='/products' element={<Products />}/>
-                    <Route path='/orders' element={<Order />}/>   
-                    <Route path='/users' element={<User />}/>      
+                    <Route path='/' element={<Dashborad />} />
+                    <Route path='/product/create' element={<CreateProduct />} />
+                    <Route path='/products' element={<Products />} />
+                    <Route path='/orders' element={<Order />} />
+                    <Route path='/users' element={<User />} />
                 </Routes>
             </Box>
         </div>

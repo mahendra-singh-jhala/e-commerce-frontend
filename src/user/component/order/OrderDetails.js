@@ -16,12 +16,13 @@ const OrderDetails = () => {
         dispatch(getOrderById(orderId?.orderId))
     }, [dispatch, orderId])
 
+
     let activeStep = 0;
-    if (order?.data?.order?.orderstatus === "CONFIRMED") {
+    if (order?.data?.order.orderStatus === "CONFIRMED") {
         activeStep = 1;
-    } else if (order?.data?.order?.orderstatus === "SHIPPED") {
+    } else if (order?.data?.order.orderStatus === "SHIPPED") {
         activeStep = 2;
-    } else if (order?.data?.order?.orderstatus === "DELIVERED") {
+    } else if (order?.data?.order.orderStatus === "DELIVERED") {
         activeStep = 3;
     }
 

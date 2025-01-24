@@ -1,7 +1,8 @@
 import { Button, Card, CardContent, CardMedia, Typography, Box } from "@mui/material"
 import image from "../../../asset/admin/achive.png"
 
-const Achivement = () => {
+const Achivement = ({totalRevenue}) => {
+
     return (
         <Card sx={{ display: 'flex', alignItems: 'center', bgcolor:"#192A56", color:"white" }}>
             <Box>
@@ -13,7 +14,7 @@ const Achivement = () => {
                         Congratulations
                     </Typography>
                     <Typography variant="h5" sx={{my: 2, fontWeight: "bold"}}>
-                        420.8k
+                        {totalRevenue}
                     </Typography>
                     <Button variant="contained" size="small" sx={{ bgcolor: "#BB2CD9"}}> view Sales </Button>
                 </CardContent>

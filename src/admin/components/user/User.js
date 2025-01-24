@@ -20,7 +20,7 @@ const User = () => {
                         Latest Customers
                     </Typography>
                 </Grid>
-                {users?.user?.map((user) => (
+                {users?.user?.length > 0 && users?.user?.map((user) => (
                     <Grid size={{ xs: 12 }} sx={{ bgcolor: "#192A56", padding: 4, border: "white" }} >
                         <Grid container spacing={2} alignItems="center">
                             <Grid size={{ xs: 1 }}>

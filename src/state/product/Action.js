@@ -15,10 +15,10 @@ export const createProduct = (productData) => async (dispatch) => {
 
 export const findProducts = (reqData) => async (dispatch) => {
     dispatch({ type: FIND_PRODUCTS_REQUEST})
-    const {color, sizes, minPrice, maxPrice, category, sort, pageNumber, pageSize} = reqData;
+    const {color, sizes, minPrice, maxPrice, category, pageNumber, pageSize} = reqData;
 
     try {
-        const data = await api.get(`/api/products?category=${category}&color=${color}&size=${sizes}&minPrice=${minPrice}&maxPrice=${maxPrice}&sort=${sort}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
+        const data = await api.get(`/api/products?category=${category}&color=${color}&size=${sizes}&minPrice=${minPrice}&maxPrice=${maxPrice}&pageNumber=${pageNumber}&pageSize=${pageSize}`)
     
         dispatch({ type: FIND_PRODUCTS_SUCCESS, payload: data})
     } catch (error) {
@@ -40,9 +40,21 @@ export const findProductsById = (productId) => async (dispatch) => {
 export const deleteProduct = (productId) => async (dispatch) => {
     dispatch({ type: DELETE_PRODUCT_REQUEST})
     try {
-        const data = await api.delete(`/api/products/${productId}`)
+        const res = await api.delete(`/api/products/${productId}`)
     
-        dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: data})
+        dispatch({ type: DELETE_PRODUCT_SUCCESS, payload: res})
+
+        const [minPrice, maxPrice] = [0, Infinity];
+		const data = {
+			category: "",
+			color: [],
+			sizes: [],
+			minPrice,
+			maxPrice,
+			pageNumber: 1,
+			pageSize: Infinity,
+		}
+		dispatch(findProducts(data))
     } catch (error) {
         dispatch({ type: DELETE_PRODUCT_FAILURE, payload: error.message})
     }

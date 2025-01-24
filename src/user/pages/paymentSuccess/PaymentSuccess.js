@@ -1,28 +1,23 @@
 import { Alert, AlertTitle} from '@mui/material'
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { getOrderById } from '../../../state/order/Action'
-import { updatePayment } from '../../../state/payment/Action'
-import { useLocation, useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const PaymentSuccess = () => {
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const orderId = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(location.search);
-        const paymentId = urlParams.get('razorpay_payment_id');
-
-        if (orderId) {
-            dispatch(updatePayment(orderId?.orderId, paymentId))
-            dispatch(getOrderById(orderId?.orderId))
-        } 
-    }, [dispatch, orderId, location.search]);
-
+        const timer = setTimeout(() => {
+            navigate("/user/order")
+        }, 3000);
+    
+        return () => {
+          clearTimeout(timer);
+        }
+      }, [navigate])
+    
 
     return (
-        <div className="px-2 lg:px-36">
+        <div className="px-2 lg:px-36 my-10">
             <div className="flex flex-col justify-center items-center">
                 <Alert
                     variant="filled"
