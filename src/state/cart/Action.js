@@ -2,15 +2,21 @@ import { ADD_ITEM_TO_CART_FAILURE, ADD_ITEM_TO_CART_REQUEST, ADD_ITEM_TO_CART_SU
 import { api } from "../../config/api";
 
 export const getCart = () => async (dispatch) => {
+    const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: GET_CART_REQUEST })
 
     try {
-        const res = await api.get("/api/cart")
+        const res = await api.get("/api/cart", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
+
         dispatch({
-            type: GET_CART_SUCCESS, 
+            type: GET_CART_SUCCESS,
             payload: {
-                cartItem: res.data.cart.cartItem,  
-                cart: res.data.cart, 
+                cartItem: res.data.cart.cartItem,
+                cart: res.data.cart,
             }
         })
     } catch (error) {
@@ -19,9 +25,16 @@ export const getCart = () => async (dispatch) => {
 }
 
 export const addItemToCart = (reqData) => async (dispatch) => {
+    const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: ADD_ITEM_TO_CART_REQUEST })
     try {
-        const data = await api.put("/api/cart/add", reqData)
+        const data = await api.put("/api/cart/add", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        },
+            reqData
+        );
 
         dispatch(getCart());
 
@@ -32,10 +45,17 @@ export const addItemToCart = (reqData) => async (dispatch) => {
 }
 
 export const updateCartItem = (cartItemId, quantity) => async (dispatch) => {
+    const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: UPDATE_CART_ITEM_REQUEST });
 
     try {
-        const data = await api.put(`/api/cart/${cartItemId}`, { quantity });
+        const data = await api.put(`/api/cart/${cartItemId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        },
+            { quantity }
+        );
 
         dispatch({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });
 
@@ -47,10 +67,15 @@ export const updateCartItem = (cartItemId, quantity) => async (dispatch) => {
 
 
 export const removeCartItem = (cartItemId) => async (dispatch) => {
+    const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: REMOVE_CART_ITEM_REQUEST })
 
     try {
-        const data = await api.delete(`/api/cart/${cartItemId}`)
+        const data = await api.delete(`/api/cart/${cartItemId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        })
 
         dispatch({ type: REMOVE_CART_ITEM_SUCCESS, payload: data })
 

@@ -2,10 +2,15 @@ import { api } from "../../config/api";
 import { CREATE_PAYMENT_FAILURE, CREATE_PAYMENT_REQUEST, CREATE_PAYMENT_SUCCESS, UPDATE_PAYMENT_FAILURE, UPDATE_PAYMENT_REQUEST, UPDATE_PAYMENT_SUCCESS } from "./ActionType";
 
 export const createPayment = (amount, currency) => async (dispatch) => {
+    const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: CREATE_PAYMENT_REQUEST })
 
     try {
-        const data = await api.post("/api/payments/payment", { amount, currency })
+        const data = await api.post("/api/payments/payment", { amount, currency }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
 
         dispatch({
             type: CREATE_PAYMENT_SUCCESS,
@@ -18,10 +23,15 @@ export const createPayment = (amount, currency) => async (dispatch) => {
 }
 
 export const paymentVerification = (roz_orderId, paymentId, signature, orderId) => async (dispatch) => {
+    const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: UPDATE_PAYMENT_REQUEST });
 
     try {
-        const data = await api.post("/api/payments/paymentVerify", { roz_orderId, paymentId, signature, orderId })
+        const data = await api.post("/api/payments/paymentVerify", { roz_orderId, paymentId, signature, orderId }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
 
         dispatch({
             type: UPDATE_PAYMENT_SUCCESS,

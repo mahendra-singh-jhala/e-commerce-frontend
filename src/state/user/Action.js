@@ -13,7 +13,6 @@ export const getAllUser = () => async (dispatch) => {
         });
         const user = res.data;
 
-        
         dispatch({type: GET_All_USER_SUCCESS, payload: user});
     } catch (error) {
         dispatch({type: GET_All_USER_FAILURE, payload: error });
