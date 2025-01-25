@@ -74,14 +74,9 @@ export const getOrder = () => async (dispatch) => {
 }
 
 export const confirmOrder = (orderId) => async (dispatch) => {
-    const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: CONFIRMED_ORDER_REQUEST })
     try {
-        const data = await api.put(`/api/orders/${orderId}/confirmed`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        })
+        const data = await api.put(`/api/orders/${orderId}/confirmed`)
 
         dispatch({ type: CONFIRMED_ORDER_SUCCESS, payload: data })
 
@@ -92,15 +87,9 @@ export const confirmOrder = (orderId) => async (dispatch) => {
 }
 
 export const shipOrder = (orderId) => async (dispatch) => {
-    const token = JSON.parse(localStorage.getItem("token")).token
-
     dispatch({ type: SHIP_ORDER_REQUEST })
     try {
-        const data = await api.put(`/api/orders/${orderId}/ship`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        })
+        const data = await api.put(`/api/orders/${orderId}/ship`)
 
         dispatch({ type: SHIP_ORDER_SUCCESS, payload: data })
 
@@ -111,15 +100,9 @@ export const shipOrder = (orderId) => async (dispatch) => {
 }
 
 export const deliveredOrder = (orderId) => async (dispatch) => {
-    const token = JSON.parse(localStorage.getItem("token")).token
-
     dispatch({ type: DELIVERED_ORDER_REQUEST })
     try {
-        const data = await api.put(`/api/orders/${orderId}/deliver`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        })
+        const data = await api.put(`/api/orders/${orderId}/deliver`)
 
         dispatch({ type: DELIVERED_ORDER_SUCCESS, payload: data })
 
@@ -130,15 +113,9 @@ export const deliveredOrder = (orderId) => async (dispatch) => {
 }
 
 export const cancelOrder = (orderId) => async (dispatch) => {
-    const token = JSON.parse(localStorage.getItem("token")).token
-
     dispatch({ type: CANCELED_ORDER_REQUEST })
     try {
-        const data = await api.put(`/api/orders/${orderId}/cancel`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        })
+        const data = await api.put(`/api/orders/${orderId}/cancel`)
 
         dispatch({ type: CANCELED_ORDER_SUCCESS, payload: data })
 
@@ -149,15 +126,9 @@ export const cancelOrder = (orderId) => async (dispatch) => {
 }
 
 export const deleteOrder = (orderId) => async (dispatch) => {
-    const token = JSON.parse(localStorage.getItem("token")).token
-
     dispatch({ type: DELETE_ORDER_REQUEST })
     try {
-        const data = await api.delete(`/api/orders/${orderId}/delete`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-        })
+        const data = await api.delete(`/api/orders/${orderId}/delete`)
 
         dispatch({ type: DELETE_ORDER_SUCCESS, payload: data })
 
