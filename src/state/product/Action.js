@@ -7,7 +7,11 @@ export const createProduct = (productData) => async (dispatch) => {
     dispatch({ type: CREATE_PRODUCT_REQUEST })
 
     try {
-        const data = await api.post("/api/products", productData)
+        const data = await api.post("/api/products", { productData }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
 
         dispatch({ type: CREATE_PRODUCT_SUCCESS, payload: data})
     } catch (error) {
