@@ -28,7 +28,7 @@ export const addItemToCart = (reqData) => async (dispatch) => {
     const token = JSON.parse(localStorage.getItem("token")).token
     dispatch({ type: ADD_ITEM_TO_CART_REQUEST })
     try {
-        const data = await api.put("/api/cart/add", {reqData}, {
+        const data = await api.put("/api/cart/add", reqData, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
