@@ -18,20 +18,25 @@ const Product = () => {
     const dispatch = useDispatch()
     const product = useSelector(state => state.product);
 
+    // Decode and parse query string parameters from the URL
     const decodedQueryString = decodeURIComponent(location.search);
     const searchParmms = new URLSearchParams(decodedQueryString);
+    // Extract specific query parameters (color, size, price, and page) from the URL
     const colorValue = searchParmms.get("color")
     const sizeValue = searchParmms.get("size")
     const priceValue = searchParmms.get("price")
     const pageNumber = searchParmms.get("page")
 
+    // Function to handle filter changes
     const hnadleFilter = (value, sectionId) => {
+        // Get the current query parameters from the URL
         const searchParmms = new URLSearchParams(location.search)
-
+        // Get the current values for the filter section
         let filterValue = searchParmms.getAll(sectionId)
+        // If the value already exists in the filter, remove it, otherwise, add it
         if (filterValue.length > 0 && filterValue[0].split(",").includes(value)) {
-            filterValue = filterValue[0].split(",").filter((item) => item !== value);
-
+            filterValue = filterValue[0].split(",").filter((item) => item !== value)
+            // If there are no values left in the filter, remove the parameter
             if (filterValue.length === 0) {
                 searchParmms.delete(sectionId)
             }
@@ -39,29 +44,32 @@ const Product = () => {
             filterValue.push(value)
         }
 
+        // Update the query string with the new filter values
         if (filterValue.length > 0) {
             searchParmms.set(sectionId, filterValue.join(","))
         }
-
+        // Navigate to the updated URL with the new query string
         const query = searchParmms.toString();
         navigate({ search: `?${query}` })
     }
 
+    // Function to handle radio button filter changes
     const hnadleRadioFilterChange = (e, sectionId) => {
         const searchParmms = new URLSearchParams(location.search)
-
         searchParmms.set(sectionId, e.target.value)
         const query = searchParmms.toString();
         navigate({ search: `?${query}` })
     }
 
+    // Function to handle pagination changes
     const handlePaginationChange = (e, value) => {
         const searchParams = new URLSearchParams(location.search)
         searchParams.set("page", value)
         const query = searchParams.toString();
-        navigate({search: `?${query}`})
+        navigate({ search: `?${query}` })
     }
 
+    // useEffect hook to dispatch action to fetch products based on filters
     useEffect(() => {
         const [minPrice, maxPrice] = priceValue && priceValue !== null ? priceValue.split("-").map(Number) : [0, Infinity];
         const data = {
@@ -327,7 +335,7 @@ const Product = () => {
 
                     <section className="w-full px-[54px]">
                         <div className="px-4 py-5 flex justify-center">
-                            <Pagination count={ product.products?.totalPages } color="secondary" onChange={handlePaginationChange} />
+                            <Pagination count={product.products?.totalPages} color="secondary" onChange={handlePaginationChange} />
                         </div>
                     </section>
                 </main>

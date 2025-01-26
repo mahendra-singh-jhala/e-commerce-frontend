@@ -8,38 +8,41 @@ const Order = () => {
     const order = useSelector(state => state.order.orders)
     const [anchorEl, setAnchorEl] = useState([]);
 
+    // Create a new array of anchor elements and update the specific index with the event current target
     const handleClick = (event, index) => {
         const newAnchorEl = [...anchorEl]
         newAnchorEl[index] = event.currentTarget
         setAnchorEl(newAnchorEl)
     };
 
+    // Closes the menu and the anchor element at the given index to null
     const handleClose = (index) => {
         const newAnchorEl = [...anchorEl]
         newAnchorEl[index] = null
         setAnchorEl(newAnchorEl)
     };
 
+    // useEffect hook to dispatch the getOrder
     useEffect(() => {
         dispatch(getOrder())
     }, [dispatch])
 
-
+    // handler for marking the order as shipped
     const handleShippedOrder = (orderId) => {
         dispatch(shipOrder(orderId))
         handleClose()
     }
-
+    // handler for marking the order as confirmed
     const handleConfirmedOrder = (orderId) => {
         dispatch(confirmOrder(orderId))
         handleClose()
     }
-
+    // handler for marking the order as delivered
     const handleDeliveredOrder = (orderId) => {
         dispatch(deliveredOrder(orderId))
         handleClose()
     }
-
+    // handler for deleting the order
     const handleDeleteOrder = (orderId) => {
         dispatch(deleteOrder(orderId))
     }
@@ -113,7 +116,6 @@ const Order = () => {
                                         <MenuItem onClick={() => handleShippedOrder(item._id)}>shipped Order</MenuItem>
                                         <MenuItem onClick={() => handleDeliveredOrder(item._id)}>delivered Order</MenuItem>
                                     </Menu>
-
                                 </TableCell>
                                 <TableCell align="left" sx={{ color: "white" }}>
                                     <Button variant='outlined' sx={{ color: "white" }} onClick={() => handleDeleteOrder(item._id)}> Delete </Button>

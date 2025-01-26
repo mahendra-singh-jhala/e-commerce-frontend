@@ -15,10 +15,12 @@ const Products = () => {
 	const dispatch = useDispatch()
 	const products = useSelector(state => state.product.products);
 
+	// Function to handle product deletion
 	const handleProductDelete = (productId) => {
 		dispatch(deleteProduct(productId))
 	}
 
+	// useEffect hook to fetch products
 	useEffect(() => {
 		const [minPrice, maxPrice] = [0, Infinity];
 		const data = {

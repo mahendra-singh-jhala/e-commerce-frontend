@@ -32,14 +32,16 @@ const Admin = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // Function to toggle the visibility of the sidebar
     const toggleDrawer = (newsidebarVisible) => () => {
         setSidebarVisibal(newsidebarVisible);
     };
 
+    // Function to handle logout
     const handleLogout = () => {
-        dispatch(logout()); 
-        navigate('/'); 
-      };
+        dispatch(logout());
+        navigate('/');
+    };
 
     const drawer = (
         <Box sx={{ overflow: "auto", display: "flex", flexDirection: "column", height: "100%" }}>

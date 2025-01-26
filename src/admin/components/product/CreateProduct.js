@@ -4,8 +4,6 @@ import { createProduct } from "../../../state/product/Action";
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 
-
-
 let initialSize = [
     { name: "S", quantity: 0 },
     { name: "M", quantity: 0 },
@@ -30,6 +28,7 @@ const CreateProduct = () => {
     });
     const dispatch = useDispatch();
 
+    // Handles changes in the input fields of the form 
     const handleChange = (e) => {
         const { name, value} = e.target;
         setProductData((prevState) => ({
@@ -38,15 +37,14 @@ const CreateProduct = () => {
         }))
     }
 
+    // Handles changes for size specific data in the product form
     const handleSizeChange = (e, index) => {
         let { name, value} = e.target;
-
         if (name === "size_quantity") {
             name = "quantity";  
         } else {
             name = e.target.name;  
         }
-
         const sizes = [...productData.sizes];
         sizes[index][name] = value
         setProductData((prevState) => ({
@@ -55,6 +53,7 @@ const CreateProduct = () => {
         }))
     }
 
+    // Handle form submission, dispatch the action to create a product
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createProduct(productData))

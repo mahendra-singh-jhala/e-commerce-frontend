@@ -22,37 +22,39 @@ const Navbar = () => {
     const tokenData = localStorage.getItem("token");
     const token = tokenData ? JSON.parse(tokenData).token : null;
     const cart = useSelector((state) => state.cart.cart)
-
+    // Boolean to check if the user menu is open
     const openUserMenu = Boolean(anchorEl)
 
+    // Function to open the user menu
     const handleUserClick = (event) => {
         setAnchorEl(event.currentTarget)
     }
-
+    // Function to close the user menu
     const handleCloseUserMenu = (event) => {
         setAnchorEl(null)
     }
-
+    // Function to open the auth modal and navigate to the registration page
     const handleOpen = () => {
         setOpenAuthModel(true)
         navigate('/register');
     }
-
+    // Function to close the auth modal
     const handleClose = () => {
         setOpenAuthModel(false)
     }
-
-    const handleCatagoryClick = (category, section, item ) => {
+    // Function to handle category and navigate to the respective category page
+    const handleCatagoryClick = (category, section, item) => {
         navigate(`/${category.id}/${section.id}/${item.id}`);
     }
 
+    // useEffect hook to dispatch action to get user data if the token is available
     useEffect(() => {
         if (token) {
             dispatch(getUser());
         }
-
     }, [dispatch, token, auth.token])
 
+    // Function to handle user logout
     const handleLogout = () => {
         dispatch(logout())
         navigate("/")
@@ -167,7 +169,7 @@ const Navbar = () => {
                                 onClick={handleLogout}
                                 className="text-sm font-medium text-gray-700 hover:text-gray-800"
                             >
-                              <LogoutIcon /> Logout
+                                <LogoutIcon /> Logout
                             </Button>
                         ) : (
                             <Button
@@ -267,7 +269,7 @@ const Navbar = () => {
                                                                                             handleCatagoryClick(
                                                                                                 category,
                                                                                                 section,
-                                                                                                item   
+                                                                                                item
                                                                                             )
                                                                                         }}
                                                                                         className="cursor-pointer hover:text-gray-800"

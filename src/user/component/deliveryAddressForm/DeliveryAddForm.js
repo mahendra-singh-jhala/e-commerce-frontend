@@ -5,17 +5,15 @@ import { useNavigate } from "react-router-dom"
 import { createOrder } from "../../../state/order/Action"
 import { useEffect } from "react"
 
-
 const DeliveryAddForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const order = useSelector(state => state.order.order)
 
+    // Handling form submission to create an order
     const handleSubmit = (e) => {
         e.preventDefault()
-
         const data = new FormData(e.currentTarget);
-
         const address = {
             firstname: data.get("firstname"),
             lastname: data.get("lastname"),
@@ -25,18 +23,17 @@ const DeliveryAddForm = () => {
             zipCode: data.get("zipCode"),
             phoneNumber: data.get("phoneNumber")
         }
-
         const orderData = {address}
         dispatch(createOrder(orderData))
     }
 
+    // useEffect hook to navigate to the next step when the order ID is available
     const orderId = order?.data?.saveOrder?._id
     useEffect(() => {
         if (orderId) {
             navigate(`?step=3&order_id=${orderId}`);
         }
     }, [orderId, navigate])
-    
     
     return (
         <div>

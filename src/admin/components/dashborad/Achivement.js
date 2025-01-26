@@ -2,7 +2,6 @@ import { Button, Card, CardContent, CardMedia, Typography, Box } from "@mui/mate
 import image from "../../../asset/admin/achive.png"
 
 const Achivement = ({totalRevenue}) => {
-
     return (
         <Card sx={{ display: 'flex', alignItems: 'center', bgcolor:"#192A56", color:"white" }}>
             <Box>

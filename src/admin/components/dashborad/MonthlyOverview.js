@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 const MonthlyOverview = ({totalRevenue, orders, users}) => {
     const products = useSelector(state => state.product.products);
     
+    // Define the sales data structure with stats, title, color and icons
     const salesData = [
         {
             stats: `${products?.data?.content.length}`, 

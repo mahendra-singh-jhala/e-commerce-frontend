@@ -5,18 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCart } from "../../../state/cart/Action";
 
-
 const Cart = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const cart = useSelector((state) => state.cart.cart)
     const cartItem = cart?.cartItem
-
     
+    // useEffect to fetch cart data
     useEffect(() => {
         dispatch(getCart())
     }, [dispatch])
 
+    // Function to handle checkout action (navigate to step==2)
     const handleCheckout = () => {
         navigate("/checkout?step=2")
     }

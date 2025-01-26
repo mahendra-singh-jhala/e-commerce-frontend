@@ -14,6 +14,7 @@ const ProductDetails = () => {
     const dispatch = useDispatch()
     const product = useSelector((state) => state.product.product)
 
+    // Handler for the form submission (adding product to cart)
     const handleSubmit = () => {
         if (!selectedSize) {
             setOpenSnackbar(true)
@@ -24,10 +25,12 @@ const ProductDetails = () => {
         }
     }
 
+    // Handler to close the Snackbar
     const handleSnackbarClose = () => {
         setOpenSnackbar(false)
     }
 
+    // useEffrect hook to product details from the API when product ID changes
     useEffect(() => {
         dispatch(findProductsById(params.productId))
     }, [dispatch, params.productId])

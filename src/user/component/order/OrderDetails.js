@@ -12,11 +12,12 @@ const OrderDetails = () => {
     const orderId = useParams();
     const order = useSelector((state) => state.order.order)
 
+    // useEffect hook to fetch order details, when orderId changes
     useEffect(() => {
         dispatch(getOrderById(orderId?.orderId))
     }, [dispatch, orderId])
 
-
+    // active step based on the order's status (for OrderTracking)
     let activeStep = 0;
     if (order?.data?.order.orderStatus === "CONFIRMED") {
         activeStep = 1;

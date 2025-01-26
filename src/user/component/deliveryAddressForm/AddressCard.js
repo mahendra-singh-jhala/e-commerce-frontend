@@ -1,4 +1,3 @@
-
 const AddressCard = ({ address }) => {
     return (
         <div>

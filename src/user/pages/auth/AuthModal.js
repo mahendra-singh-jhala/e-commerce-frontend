@@ -9,6 +9,7 @@ const AuthModal = ({ handleClose, open }) => {
     const location = useLocation()
     const navigate = useNavigate()
 
+    // Handle the success case when user logs in successfully
     const handleLoginSuccess = () => {
         navigate('/')
         handleClose()

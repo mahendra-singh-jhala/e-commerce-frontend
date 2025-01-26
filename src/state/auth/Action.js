@@ -2,7 +2,7 @@ import axios from "axios"
 import { GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionType";
 import { API_BASE_URL } from "../../config/api"
 
-
+// handle user registration
 export const register = (userData) => async (dispatch) => {
     dispatch({ type: REGISTER_REQUEST })
     try {
@@ -16,6 +16,7 @@ export const register = (userData) => async (dispatch) => {
     }
 }
 
+// handle user login
 export const login = (loginData) => async (dispatch) => {
     dispatch({ type: LOGIN_REQUEST })
     try {
@@ -24,16 +25,15 @@ export const login = (loginData) => async (dispatch) => {
         if (user) {
             localStorage.setItem("token", JSON.stringify(res.data))
         }
-
         dispatch({ type: LOGIN_SUCCESS, payload: user })
     } catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error })
     }
 }
 
+// fetch the user profile
 export const getUser = () => async (dispatch) => {
     const token = JSON.parse(localStorage.getItem("token")).token
-
     dispatch({ type: GET_USER_REQUEST });
     try {
         const res = await axios.get(`${API_BASE_URL}/api/user/profile`, {
@@ -48,7 +48,7 @@ export const getUser = () => async (dispatch) => {
     }
 };
 
-
+// 
 export const logout = () => (dispatch) => {
     dispatch({ type: LOGOUT, payload: null})
     localStorage.clear();

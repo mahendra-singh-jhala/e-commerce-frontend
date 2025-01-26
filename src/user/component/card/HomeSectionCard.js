@@ -8,6 +8,7 @@ const HomeSectionCard = ({ product }) => {
     const auth = useSelector(state => state.auth);
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
+    // Function showing a Snackbar or navigating to a product page
     const handleClick = () => {
         if (!auth.user) {
             setOpenSnackbar(true);
@@ -15,7 +16,7 @@ const HomeSectionCard = ({ product }) => {
             navigate(`/product/${product._id}`);
         }
     };
-
+    // function that handles closing the snackbar
     const handleSnackbarClose = () => {
         setOpenSnackbar(false);
     };

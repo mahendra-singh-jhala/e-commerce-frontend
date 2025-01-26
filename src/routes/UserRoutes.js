@@ -16,7 +16,6 @@ const UserRoutes = () => {
     return (
         <div>
             <Navbar />
-
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/register" element={<HomePage />} />
@@ -30,7 +29,6 @@ const UserRoutes = () => {
                 <Route path="/payment-success" element={<PaymentSuccess />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-
             <Footer />
         </div>
     )

@@ -15,10 +15,11 @@ const Checkout = () => {
     const [activeStep, setActiveStep] = useState(0);
     const location = useLocation()
 
+    // query string to retrieve the step value from the URL
     const querySearch = new URLSearchParams(location.search);
-
     const step = parseInt(querySearch.get("step"), 10)
-
+    
+    // Function to decrease the active step by 1
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };

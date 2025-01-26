@@ -8,6 +8,7 @@ const User = () => {
     const dispatch = useDispatch()
     const users = useSelector(state => state.users.users);
 
+    // useEffect hook to get all user
     useEffect(() => {
         dispatch(getAllUser());
     }, [dispatch])

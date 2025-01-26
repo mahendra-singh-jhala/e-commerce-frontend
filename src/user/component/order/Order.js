@@ -8,6 +8,7 @@ const Order = () => {
     const order = useSelector((state) => state.order.orders)
     const dispatch = useDispatch()
 
+    // useEffect hook to fetch user orders 
     useEffect(() => {
         dispatch(getUserOrder())
     }, [dispatch])

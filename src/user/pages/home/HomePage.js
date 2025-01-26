@@ -8,6 +8,7 @@ const HomePage = () => {
     const dispatch = useDispatch()
     const products = useSelector(state => state.product.products);
 
+    // useEffect hook to fetch products
     useEffect(() => {
         const [minPrice, maxPrice] = [0, Infinity];
         const data = {
@@ -22,8 +23,9 @@ const HomePage = () => {
         dispatch(findProducts(data))
     }, [dispatch])
 
-    const categories = ["shirt", "mens_kurta", "men_jeans", "women_dress", "women_jeans", "top"];
-
+    // Define a list of categories to filter products
+    const categories = ["shirt", "mens_kurta", "men_jeans", "women_dress", "women_jeans", "top"]
+    // Function to filter products based on category name
     const filterCategory = (categoryName) => {
         return products?.data?.content?.filter((product) => product?.category?.name === categoryName);
     }
@@ -31,7 +33,6 @@ const HomePage = () => {
     return (
         <div>
             <HomeCarousel />
-
             {categories.map((category) => (
                 <div key={category} className="flex flex-col justify-center space-y-10 py-20 px-5 lg:px-10">
                     <CardCarousel data={filterCategory(category)} sectionName={category} />

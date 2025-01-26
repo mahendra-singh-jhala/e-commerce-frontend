@@ -11,9 +11,9 @@ const Login = ({ onLoginSuccess }) => {
     const token = tokenData ? JSON.parse(tokenData).token : null;
     const navigate = useNavigate()
 
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         const data = new FormData(e.target);
         const loginData = {
             email: data.get("email"),
@@ -22,12 +22,14 @@ const Login = ({ onLoginSuccess }) => {
         dispatch(login(loginData))
     }
 
+    // useEffect hook to get the user data if a token is present
     useEffect(() => {
         if (token) {
             dispatch(getUser());
         }
     }, [dispatch, token]);
 
+    // useEffect hook to handle redirect on role based (admin or user)
     useEffect(() => {
         if (token) {
             onLoginSuccess()

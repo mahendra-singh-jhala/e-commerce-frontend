@@ -6,12 +6,11 @@ import { register } from "../../../state/auth/Action";
 const Register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-
     const { success } = useSelector((state) => state.auth);
 
+    // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
         const data = new FormData(e.target);
         const userData= {
             username: data.get("username"),
@@ -20,10 +19,10 @@ const Register = () => {
             email: data.get("email"),
             password: data.get("password")
         }
-
         dispatch(register(userData))
     }
 
+    // navigate to the login page
     if (success) {
         navigate('/login')
     }

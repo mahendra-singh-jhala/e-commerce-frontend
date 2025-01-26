@@ -7,18 +7,19 @@ import { useState } from "react";
 
 const CardCarousel = ({ data, sectionName }) => {
     const [activeIndex, setActiveIndex] = useState(0);
-
+    // Responsive settings for the carousel
     const responsive = {
         0: { items: 1 },
         720: { items: 3 },
         1024: { items: 5 },
     };
 
+    // Functions to navigate between slides (previous and next)
     const slidePrev = () => setActiveIndex(activeIndex - 1)
     const slideNext = () => setActiveIndex(activeIndex + 1)
-
+    // Function to sync the slide change with the active index
     const synconSlideChange = ({ item }) => setActiveIndex(item);
-
+    // Generate carousel items
     const items = data ? data.map((item) => <HomeSectionCard key={item._id} product={item} />) : [];
 
     return (

@@ -14,14 +14,16 @@ const OrderSummary = () => {
     const order = useSelector((state) => state.order.order)
     const payment = useSelector((state) => state.payment.payment)
 
+    // Extract the orderId query parameter from the URL
     const searchParams = new URLSearchParams(location.search);
     const orderId = searchParams.get("order_id")
 
+    // useEffect hook to fetch order details, when 'orderId' changes
     useEffect(() => {
         dispatch(getOrderById(orderId))
     }, [dispatch, orderId])
 
-
+    // useEffect hook to trigger the creation of a payment when amount is available
     const amount = order?.data?.order?.totalDiscountPrice
     useEffect(() => {
         if(amount) {
@@ -29,6 +31,7 @@ const OrderSummary = () => {
         }
     }, [dispatch, amount])
 
+    // Function to handle the payment process using Razorpay
     const handlePayment = () => {
         const options = {
             key: process.env.ROZ_KEY_ID,
@@ -44,17 +47,16 @@ const OrderSummary = () => {
                 color: '#F37254',
             },
         };
-
         const razorpay = new window.Razorpay(options);
         razorpay.open();
     }
 
+    // useEffect hook to navigate to the success page when payment is successful
     useEffect(() => {
         if(payment?.data?.success) {
             navigate("/payment-success")
         }
     }, [payment, navigate])
-
 
     return (
         <div>
