@@ -29,9 +29,8 @@ const Register = () => {
 
     return (
         <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-            <div className="w-full p-6 rounded-lg shadow-lg bg-slate-500 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-0">
+            <div className="sm:w-full p-6 rounded-lg shadow-lg bg-slate-500 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-0">
                 <h1 className="text-2xl font-semibold text-center mb-8">Register</h1>
-
                 <form onSubmit={handleSubmit}>
                     <div className="mt-4">
                         <label className="block mb-1 text-md text-slate-800 font-medium ">Username</label>
