@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import HomeCarousel from '../../component/carousel/HomeCarousel/HomeCarousel'
-import CardCarousel from '../../component/carousel/cardCarousel/CardCarousel'
+import React, { Suspense, useEffect } from 'react'
 import { findProducts } from '../../../state/product/Action';
 import { useDispatch, useSelector } from 'react-redux';
+const HomeCarousel = React.lazy(() => import('../../component/carousel/HomeCarousel/HomeCarousel'));
+const CardCarousel = React.lazy(() => import('../../component/carousel/cardCarousel/CardCarousel'));
 
 const HomePage = () => {
     const dispatch = useDispatch()
@@ -34,9 +34,9 @@ const HomePage = () => {
         <div>
             <HomeCarousel />
             {categories.map((category) => (
-                <div key={category} className="flex flex-col justify-center space-y-10 py-20 px-5 lg:px-10">
+                <Suspense fallback={<div>Loading Products...</div>}>
                     <CardCarousel data={filterCategory(category)} sectionName={category} />
-                </div>
+                </Suspense>
             ))}
         </div>
     )

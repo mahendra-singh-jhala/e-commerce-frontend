@@ -1,16 +1,16 @@
 import { Button, Divider } from "@mui/material"
-import CartItem from "./CartItem"
 import { useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { getCart } from "../../../state/cart/Action";
+const CartItem = React.lazy(() => import("./CartItem"));
 
 const Cart = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const cart = useSelector((state) => state.cart.cart)
     const cartItem = cart?.cartItem
-    
+
     // useEffect to fetch cart data
     useEffect(() => {
         dispatch(getCart())
@@ -25,9 +25,12 @@ const Cart = () => {
         <div className="my-6">
             <div className="lg:grid grid-cols-3 lg:px-16 relative">
                 <div className="col-span-2">
-                    {cartItem?.map((item) => <CartItem key={item._id} item={item} />)}
+                    <Suspense fallback={<div>Loading...</div>}>
+                        {cartItem?.map((item) => (
+                            <CartItem key={item._id} item={item} />
+                        ))}
+                    </Suspense>
                 </div>
-
                 <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0">
                     <div className="border p-5">
                         <p className="uppercase font-bold opacity-60 pb-4"> Price Details </p>
