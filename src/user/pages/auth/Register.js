@@ -6,13 +6,13 @@ import { register } from "../../../state/auth/Action";
 const Register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const { success } = useSelector((state) => state.auth);
+    const { success, isLoading } = useSelector((state) => state.auth);
 
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault()
         const data = new FormData(e.target);
-        const userData= {
+        const userData = {
             username: data.get("username"),
             firstname: data.get("firstname"),
             lastname: data.get("lastname"),
@@ -97,8 +97,12 @@ const Register = () => {
                     <Link to='/login' className="text-sm hover:underline hover:text-blue-600 mt-6 inline-block cursor-pointer">
                         Already have an account?
                     </Link>
-                    <button type="submit" className="w-full flex items-center justify-center px-5 py-2 text-md font-medium text-center bg-gray-400 bg-opacity-50 rounded cursor-pointer hover:text-slate-900 mt-1">
-                        Register
+                    <button type="submit" className="w-full flex items-center justify-center px-5 py-2 text-md font-medium text-center bg-gray-400 bg-opacity-50 rounded cursor-pointer hover:text-slate-900 mt-1" disabled={isLoading}>
+                        {isLoading ? (
+                            <span>Loading...</span>
+                        ) : (
+                            "Register"
+                        )}
                     </button>
                 </form>
             </div>
@@ -107,6 +111,3 @@ const Register = () => {
 }
 
 export default Register
-
-
-

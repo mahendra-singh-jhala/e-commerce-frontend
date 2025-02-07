@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const Login = ({ onLoginSuccess }) => {
     const dispatch = useDispatch();
-    const auth = useSelector(state => state.auth);
+    const {auth, isLoading } = useSelector(state => state.auth);
     const tokenData = localStorage.getItem("token");
     const token = tokenData ? JSON.parse(tokenData).token : null;
     const navigate = useNavigate()
@@ -73,8 +73,12 @@ const Login = ({ onLoginSuccess }) => {
                     <Link to='/register' className="text-sm hover:underline hover:text-blue-600 mt-6 inline-block cursor-pointer">
                         Don't have an account?
                     </Link>
-                    <button type="submit" className="w-full flex items-center justify-center px-5 py-2 text-md font-medium text-center bg-gray-400 bg-opacity-50 rounded cursor-pointer hover:text-slate-900 mt-1">
-                        LogIn
+                    <button type="submit" className="w-full flex items-center justify-center px-5 py-2 text-md font-medium text-center bg-gray-400 bg-opacity-50 rounded cursor-pointer hover:text-slate-900 mt-1" disabled={isLoading}>
+                        {isLoading ? (
+                            <span>Loading...</span>
+                        ) : (
+                            "Login"
+                        )}
                     </button>
                 </form>
             </div>
