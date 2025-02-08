@@ -34,7 +34,7 @@ const HomePage = () => {
         <div>
             <HomeCarousel />
             {categories.map((category) => (
-                <Suspense fallback={<div>Loading Products...</div>}>
+                <Suspense fallback={<div className="text-black">Loading Products...</div>}>
                     <CardCarousel data={filterCategory(category)} sectionName={category} />
                 </Suspense>
             ))}

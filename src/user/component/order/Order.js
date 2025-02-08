@@ -18,7 +18,7 @@ const Order = () => {
             <Grid container sx={{ justifyContent: "space-between" }}>
                 <Grid size={{ xs: 12 }}>
                     <div className="space-y-5">
-                        <Suspense fallback={<div>Loading orders...</div>}>
+                        <Suspense fallback={<div className="text-black">Loading orders...</div>}>
                             {order?.data?.orders?.map((item) => (
                                 <OrderCard key={item._id} item={item} />
                             ))}

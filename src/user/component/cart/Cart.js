@@ -25,7 +25,7 @@ const Cart = () => {
         <div className="my-6">
             <div className="lg:grid grid-cols-3 lg:px-16 relative">
                 <div className="col-span-2">
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div className="text-black">Loading...</div>}>
                         {cartItem?.map((item) => (
                             <CartItem key={item._id} item={item} />
                         ))}
