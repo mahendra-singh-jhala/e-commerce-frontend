@@ -6,7 +6,8 @@ import { useEffect } from "react";
 
 const Login = ({ onLoginSuccess }) => {
     const dispatch = useDispatch();
-    const {auth, isLoading } = useSelector(state => state.auth);
+    const auth = useSelector(state => state.auth);
+    const { isLoading } = useSelector(state => state.auth);
     const tokenData = localStorage.getItem("token");
     const token = tokenData ? JSON.parse(tokenData).token : null;
     const navigate = useNavigate()
