@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardMedia, CardContent, Typography, Box, Snackbar } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Box, Snackbar, Alert } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -76,12 +76,15 @@ function ProductCard({ product }) {
                 open={openSnackbar}
                 autoHideDuration={3000}
                 onClose={handleSnackbarClose}
-                message="Please login first"
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'center',
                 }}
-            />
+            >
+                <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: '100%' }}>
+                    Please Login First
+                </Alert>
+            </Snackbar>
         </div>
     );
 }
