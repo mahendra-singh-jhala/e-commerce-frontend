@@ -25,7 +25,7 @@ const CardCarousel = ({ data, sectionName }) => {
     return (
         <div className="px-4 lg:px-8">
             <h2 className="text-2xl font-bold text-gray-800 uppercase mb-2">{sectionName}</h2>
-            <div className="relative p-5 border border-gray-400 rounded-md">
+            <div className="relative p-5 border border-gray-400 rounded-md mb-6">
                 <AliceCarousel
                     items={items}
                     disableButtonsControls
